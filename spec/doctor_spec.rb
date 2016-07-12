@@ -57,5 +57,5 @@ describe(Doctor) do
       test_patient2.save()
       expect(test_doctor.patients()).to(eq([test_patient, test_patient2]))
     end
-  end 
+  end
 end
