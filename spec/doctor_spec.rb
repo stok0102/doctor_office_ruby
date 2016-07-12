@@ -9,21 +9,21 @@ describe(Doctor) do
 
   describe("#name") do
     it "tells you its name" do
-      doctor = Doctor.new({:name => "Clarence", :specialty => "hematology"})
+      doctor = Doctor.new({:name => "Clarence", :specialty_id => 1})
       expect(doctor.name()).to(eq("Clarence"))
     end
   end
 
-  describe("#specialty") do
-    it "tells you its specialty" do
-      doctor = Doctor.new({:name => "Clarence", :specialty => "hematology"})
-      expect(doctor.specialty()).to(eq("hematology"))
+  describe("#specialty_id") do
+    it "tells you its specialty_id" do
+      doctor = Doctor.new({:name => "Clarence", :specialty_id => 1})
+      expect(doctor.specialty_id()).to(eq(1))
     end
   end
 
   describe("#save") do
     it "saves doctor entry into doctor database" do
-      doctor = Doctor.new({:name => "Clarence", :specialty => "hematology"})
+      doctor = Doctor.new({:name => "Clarence", :specialty_id => 1})
       doctor.save()
       expect(Doctor.all()).to(eq([doctor]))
     end
@@ -31,17 +31,17 @@ describe(Doctor) do
 
   describe("#==") do
     it("is the same doctor if it has the same name") do
-      doctor1 = Doctor.new({:name => "Clarence", :specialty => "hematology"})
-      doctor2 = Doctor.new({:name => "Clarence", :specialty => "hematology"})
+      doctor1 = Doctor.new({:name => "Clarence", :specialty_id => 1})
+      doctor2 = Doctor.new({:name => "Clarence", :specialty_id => 1})
       expect(doctor1).to(eq(doctor2))
     end
   end
 
   describe(".find") do
     it "returns a doctor by its ID" do
-      test_doctor = Doctor.new({:name => "Clarence", :specialty => "hematology"})
+      test_doctor = Doctor.new({:name => "Clarence", :specialty_id => 1})
       test_doctor.save()
-      test_doctor2 = Doctor.new({:name => "Roger", :specialty => "oncology"})
+      test_doctor2 = Doctor.new({:name => "Roger", :specialty_id => 2})
       test_doctor2.save()
       expect(Doctor.find(test_doctor2.id())).to(eq(test_doctor2))
     end
@@ -49,7 +49,7 @@ describe(Doctor) do
 
   describe('#patients') do
     it "returns an array of patients for that doctor" do
-      test_doctor = Doctor.new({:name => "Clarence", :specialty => "hematology"})
+      test_doctor = Doctor.new({:name => "Clarence", :specialty_id => 1})
       test_doctor.save()
       test_patient = Patient.new({:name => "Lucinda", :doctor_id => test_doctor.id(), :birthdate => '1973-03-24'})
       test_patient.save()

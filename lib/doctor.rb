@@ -1,9 +1,9 @@
 class Doctor
-  attr_reader(:name, :specialty, :id)
+  attr_reader(:name, :specialty_id, :id)
 
   define_method(:initialize) do |attributes|
     @name = attributes.fetch(:name)
-    @specialty = attributes.fetch(:specialty)
+    @specialty_id = attributes.fetch(:specialty_id)
     @id = attributes[:id]
   end
 
@@ -12,20 +12,20 @@ class Doctor
     doctors = []
     returned_doctors.each() do |doctor|
       name = doctor.fetch("name")
-      specialty = doctor.fetch("specialty")
+      specialty_id = doctor.fetch("specialty_id").to_i()
       id = doctor.fetch("id").to_i()
-      doctors.push(Doctor.new({:name => name, :specialty => specialty, :id => id}))
+      doctors.push(Doctor.new({:name => name, :specialty_id => specialty_id, :id => id}))
     end
     doctors
   end
 
   define_method(:save) do
-    result = DB.exec("INSERT INTO doctors (name, specialty) VALUES ('#{@name}', '#{@specialty}') RETURNING id;")
+    result = DB.exec("INSERT INTO doctors (name, specialty_id) VALUES ('#{@name}', '#{@specialty_id}') RETURNING id;")
     @id = result.first().fetch("id").to_i()
   end
 
   define_method(:==) do |another_doctor|
-    self.name().==(another_doctor.name()).&(self.specialty().==(another_doctor.specialty())).&(self.id().==(another_doctor.id()))
+    self.name().==(another_doctor.name()).&(self.specialty_id().==(another_doctor.specialty_id())).&(self.id().==(another_doctor.id()))
   end
 
   define_singleton_method(:find) do |id|
