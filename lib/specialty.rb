@@ -18,7 +18,7 @@ class Specialty
   end
 
   define_method(:save) do
-    result = DB.exec("INSERT INTO specialties (area, specialty_id) VALUES ('#{@area}', '#{@specialty_id}') RETURNING id;")
+    result = DB.exec("INSERT INTO specialties (area) VALUES ('#{@area}') RETURNING id;")
     @id = result.first().fetch("id").to_i()
   end
 
@@ -42,8 +42,7 @@ class Specialty
     doctors.each() do |doctor|
       name = doctor.fetch("name")
       specialty_id = doctor.fetch("specialty_id").to_i()
-      id = doctor.fetch("id")
-      specialty_doctors.push(Doctor.new({:name => name, :specialty_id => specialty_id, :id => nil}))
+      specialty_doctors.push(Doctor.new({:name => name, :specialty_id => specialty_id}))
     end
     specialty_doctors
   end
