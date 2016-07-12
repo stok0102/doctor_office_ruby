@@ -38,5 +38,16 @@ class Doctor
     found_doctor
   end
 
+  define_method(:patients) do
+    doctor_patients = []
+    patients = DB.exec("SELECT * FROM patients WHERE doctor_id = #{self.id()};")
+    patients.each() do |patient|
+      name = patient.fetch("name")
+      doctor_id = patient.fetch("doctor_id").to_i()
+      birthdate = patient.fetch("birthdate")
+      doctor_patients.push(Patient.new({:name => name, :doctor_id => doctor_id, :birthdate => birthdate}))
+    end
+    doctor_patients
+  end
 
 end
