@@ -49,11 +49,11 @@ describe(Specialty) do
 
   describe('#doctors') do
     it "returns an array of doctors for that specialty" do
-      test_specialty = Specialty.new({:area => "neurology"})
+      test_specialty = Specialty.new({:area => "neurology", :id => nil})
       test_specialty.save()
-      test_doctor = Doctor.new({:name => "Lucinda", :specialty_id => test_specialty.id()})
+      test_doctor = Doctor.new({:name => "Lucinda", :specialty_id => test_specialty.id(), :id => nil})
       test_doctor.save()
-      test_doctor2 = Doctor.new({:name => "Esmerelda", :specialty_id => test_specialty.id()})
+      test_doctor2 = Doctor.new({:name => "Esmerelda", :specialty_id => test_specialty.id(), :id => nil})
       test_doctor2.save()
       expect(test_specialty.doctors()).to(eq([test_doctor, test_doctor2]))
     end
