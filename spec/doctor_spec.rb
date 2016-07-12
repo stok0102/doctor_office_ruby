@@ -20,4 +20,12 @@ describe(Doctor) do
       expect(doctor.specialty()).to(eq("hematology"))
     end
   end
+
+  describe("#save") do
+    it "saves doctor entry into doctor database" do
+      doctor = Doctor.new({:name => "Clarence", :specialty => "hematology"})
+      doctor.save()
+      expect(Doctor.all()).to(eq([doctor]))
+    end
+  end
 end
