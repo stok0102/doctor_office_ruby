@@ -24,7 +24,19 @@ class Doctor
     @id = result.first().fetch("id").to_i()
   end
 
-  define_method(:==) do |another_list|
-    self.name().==(another_list.name()).&(self.specialty().==(another_list.specialty())).&(self.id().==(another_list.id()))
+  define_method(:==) do |another_doctor|
+    self.name().==(another_doctor.name()).&(self.specialty().==(another_doctor.specialty())).&(self.id().==(another_doctor.id()))
   end
+
+  define_singleton_method(:find) do |id|
+    found_doctor = nil
+    Doctor.all().each() do |doctor|
+      if doctor.id().==(id)
+        found_doctor = doctor
+      end
+    end
+    found_doctor
+  end
+
+
 end
